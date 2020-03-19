@@ -1,0 +1,12 @@
+#####################################################################
+# Scenario 0: when court guid is urn:entity:jb-coutno
+#####################################################################
+  Scenario: Run IN Cases for urn:entity:jb-coutno
+    Given Initial setup data for data access
+      | specFile       | contentFile                                                         |
+      | LS.INCases.xml | /features/services/loadspec/in/cases/mock_in_cases_jb-coutno.xml |
+    When XCC invoked on template
+    Then Xpath '/doc/metadata/geojurisdictionlist/geojurisdiction' value should match 'urn:propertyValueItem:969CD607075D4DF3A783C95428100999'
+    Then Xpath '/doc/metadata/jbentitylist/jbentity' value should match 'urn:entity:jb-coutno'
+    Then Xpath '/doc/metadata/courts/court/courtname' value should match 'urn:entity:jb-coutno'
+

@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<style type="text/css">
+		body{
+			font-family: verdana,arial,sans-serif;
+			font-size:11px;
+		}
+		table.gridtable {
+			color:#333333;
+			border-width: 1px;
+			border-color: #666666;
+			border-collapse: collapse;
+		}
+		table.gridtable th {
+			border-width: 1px;
+			padding: 8px;
+			border-style: solid;
+			border-color: #666666;
+			background-color: #dedede;
+		}
+		table.gridtable td {
+			border-width: 1px;
+			padding: 8px;
+			border-style: solid;
+			border-color: #666666;
+			background-color: #ffffff;
+			text-align:center;
+		}
+		table.gridtable td.failed {
+			color:#ED5F5F;
+		}
+		table.gridtable td.passrate {
+			font-weight:bold;
+			color:green;
+		}
+		li {
+			margin-top:5px;
+		}
+		</style>
+		</head>
+		<body>
+			<div>
+				<font style="margin-top:10px;">Hi All,<font><br/>
+				<font>This is today's LA APAC Infra Test Report</font>
+			</div>
+
+			<div style="margin-top:20px;">
+				<table class="gridtable">
+					<tr>
+						<th style="background-color:white"/>
+
+						<th>Passed</th>
+						<th>Failed</th>
+						<th>Total</th>
+						<th>Pass Rate</th>
+						<th>Detail</th>
+					</tr>
+					<tr>
+						<td>Smoke Test Suite</td>
+
+						<td class='succeeded'>${smoke_pass}</td>
+						<td class='failed'>${smoke_fail}</td>
+						<td>${smoke_total}</td>
+						<td class='passrate'>${smoke_pass_rate}</td>
+						<td>
+							<a href="${smoke_build_url}/artifact/target/test-report/index.html">Cucumber Report</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Regression Test Suite</td>
+
+						<td class='succeeded'>${regression_pass}</td>
+						<td class='failed'>${regression_fail}</td>
+						<td>${regression_total}</td>
+						<td class='passrate'>${regression_pass_rate}</td>
+						<td>
+							<a href="${regression_build_url}/artifact/target/test-report/index.html">Cucumber Report</a>
+						</td>
+					</tr>
+				</table>
+			</div>
+			<div style="margin-top:30px;">
+				<b >
+					<font color="#0B610B">Build Information</font>
+				</b>
+			</div>
+			<hr size="2" width="100%" align="center" />
+			<div style="margin-top:10px;">
+				<b>
+					<font>Cause: ${CAUSE}</font>
+				</b>
+			</div>
+			<div style="margin-top:10px;">
+				<b>
+					<font>Smoke Test Build</font>
+				</b>
+			</div>
+			<ul>
+				<li>Build: <a href="${smoke_build_url}">${smoke_build_url}</a>
+				</li>
+				<li>Cucumber Report: <a href="${smoke_build_url}/artifact/target/test-report/index.html">${smoke_build_url}artifact/target/test-report/index.html</a>
+				</li>
+				<li>Log Files:  <a href="${smoke_build_url}artifact/target/rest-logs/">${smoke_build_url}artifact/target/rest-logs/</a>
+				</li>
+			</ul>
+			<div style="margin-top:10px;">
+				<b>
+					<font>Regression Test Build</font>
+				</b>
+			</div>
+			<ul>
+				<li>Build URL: <a href="${regression_build_url}">${regression_build_url}</a>
+				</li>
+				<li>Cucumber Report: <a href="${regression_build_url}/artifact/target/test-report/index.html">${regression_build_url}artifact/target/test-report/index.html</a>
+				</li>
+				<li>Log Files:  <a href="${regression_build_url}artifact/target/rest-logs/">${regression_build_url}artifact/target/rest-logs/</a>
+				</li>
+			</ul>
+			** This is an automatically generated email by jenkins job. **<br/>
+			<br/>
+Feel free to connect GTPO-SH-NewLexisQA@ReedElsevier.com if you have any question to the report.<br/><br/>
+Thanks and Best Regards,<br/>
+May Li
+		</body>
+	</html>

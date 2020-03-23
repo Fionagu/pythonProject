@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 def get_all_files(path):
     parents = os.listdir(path)
     for parent in parents:
-        child = os.path.join(path,parent)
+        child = os.path.join(path, parent)
         if os.path.isdir(child):
             get_all_files(child)
         if os.path.isfile(child):
@@ -17,15 +17,15 @@ def get_all_files(path):
 
 # read content of the log file
 def read_file(path):
-    with open(path, 'rt',encoding='utf-8') as f:
+    with open(path, 'rt', encoding='utf-8') as f:
         return f.read()
 
 
 # save result_dict to file
 def save_result(result_dict):
-    with open(result_file, 'wt',encoding='utf-8') as f:
+    with open(result_file, 'wt', encoding='utf-8') as f:
         for key in result_dict.keys():
-            f.write(result_dict[key] +'\t' + key +'\n')
+            f.write(result_dict[key] + '\t' + key + '\n')
 
 
 def parse_api_logs_to_retrieve_all_endpoints(content):
@@ -63,7 +63,8 @@ def parse_jcite_keywords_log(content):
 
     # get response
     if 'HTTP/1.1 200 OK' in content:
-        pattern = re.compile(r'<JCiteKeywordsOutput[\s\S]*?</JCiteKeywordsOutput>')
+        pattern = re.compile(
+            r'<JCiteKeywordsOutput[\s\S]*?</JCiteKeywordsOutput>')
         response = pattern.findall(content)[0]
         soup = BeautifulSoup(response, 'xml')
 
@@ -101,7 +102,8 @@ def parse_jcite_keywords_with_pinpoint_log(content):
     response_code = content[start:end]
 
     if 'HTTP/1.1 200 OK' in content:
-        pattern = re.compile(r'<JCiteKeywordsOutput[\s\S]*?</JCiteKeywordsOutput>')
+        pattern = re.compile(
+            r'<JCiteKeywordsOutput[\s\S]*?</JCiteKeywordsOutput>')
         response = pattern.findall(content)[0]
         soup = BeautifulSoup(response, 'xml')
 
@@ -109,7 +111,8 @@ def parse_jcite_keywords_with_pinpoint_log(content):
         normalized = soup.Normalized
         pinpoint = soup.Pinpoint
 
-        if isinstance(keyword, bs4.Tag) and isinstance(normalized, bs4.Tag) and isinstance(pinpoint, bs4.Tag):
+        if isinstance(keyword, bs4.Tag) and isinstance(
+                normalized, bs4.Tag) and isinstance(pinpoint, bs4.Tag):
             b = soup.Keyword.string
             c = soup.Normalized.string
             d = soup.Pinpoint.string
@@ -128,7 +131,7 @@ def parse_casebase_retrieve_paragraph_detail_log(content):
     end = content.index('Date')
     code = content[start:end].strip()
 
-    if('200' in code):
+    if ('200' in code):
         #find json response string
         start = content.find('{')
         json_str = content[start:]
@@ -142,17 +145,17 @@ def parse_casebase_retrieve_paragraph_detail_log(content):
             end_para1 = json_obj['judge_info'][0]['end_para']
 
             judge_name2, start_para2, end_para2, judge_name3, start_para3, end_para3 = ' ', ' ', ' ', ' ', ' ', ' '
-        elif (judge_info_count ==2):
+        elif (judge_info_count == 2):
             judge_name1 = json_obj['judge_info'][0]['judge_name']
             start_para1 = json_obj['judge_info'][0]['start_para']
             end_para1 = json_obj['judge_info'][0]['end_para']
 
-            judge_name2= json_obj['judge_info'][1]['judge_name']
+            judge_name2 = json_obj['judge_info'][1]['judge_name']
             start_para2 = json_obj['judge_info'][1]['start_para']
             end_para2 = json_obj['judge_info'][1]['end_para']
 
             judge_name3, start_para3, end_para3 = ' ', ' ', ' '
-        elif(judge_info_count == 3):
+        elif (judge_info_count == 3):
             judge_name1 = json_obj['judge_info'][0]['judge_name']
             start_para1 = json_obj['judge_info'][0]['start_para']
             end_para1 = json_obj['judge_info'][0]['end_para']
@@ -165,11 +168,13 @@ def parse_casebase_retrieve_paragraph_detail_log(content):
             start_para3 = json_obj['judge_info'][2]['start_para']
             end_para3 = json_obj['judge_info'][2]['end_para']
         else:
-            judge_name1, start_para1, end_para1,judge_name2, start_para2, end_para2,judge_name3, start_para3, end_para3 = ' ', ' ',' ',' ', ' ',' ',' ', ' ',' '
+            judge_name1, start_para1, end_para1, judge_name2, start_para2, end_para2, judge_name3, start_para3, end_para3 = ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '
     else:
-        total_paragraph,judge_info_count,judge_name1, start_para1, end_para1,judge_name2, start_para2, end_para2,judge_name3, start_para3, end_para3 = ' ', ' ',' ',' ', ' ',' ',' ', ' ',' ',' ',' '
+        total_paragraph, judge_info_count, judge_name1, start_para1, end_para1, judge_name2, start_para2, end_para2, judge_name3, start_para3, end_para3 = ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '
 
-    result = lni + '\t' + code + '\t' + total_paragraph + '\t' +str(judge_info_count) +'\t' +judge_name1 + '\t' +start_para1+'\t' + end_para1+'\t' +judge_name2 + '\t' +start_para2+'\t' + end_para2+'\t' +judge_name3 + '\t' +start_para3+'\t' + end_para3
+    result = lni + '\t' + code + '\t' + total_paragraph + '\t' + str(
+        judge_info_count
+    ) + '\t' + judge_name1 + '\t' + start_para1 + '\t' + end_para1 + '\t' + judge_name2 + '\t' + start_para2 + '\t' + end_para2 + '\t' + judge_name3 + '\t' + start_para3 + '\t' + end_para3
     return result
 
 
@@ -191,7 +196,7 @@ def parse_casebase_retrieve_referenced_paragraph_log(content):
     else:
         reference_count = ' '
 
-    result = lni + '\t' + code +'\t'+str(reference_count)
+    result = lni + '\t' + code + '\t' + str(reference_count)
     return result
 
 
@@ -206,9 +211,9 @@ def parse_document_paywall(content):
     if '200' in response_code:
         # get doc lni
         start = content.index('Content-Location')
-        end = content.index('Content-Type',start)
+        end = content.index('Content-Type', start)
         doc_lni = content[start:end].strip()[-28:]
-        print('LNI: '+ doc_lni)
+        print('LNI: ' + doc_lni)
 
         # get response body html
         start = content.index('<html')
@@ -221,7 +226,9 @@ def parse_document_paywall(content):
         left_count = original_script.count('{')
         right_count = original_script.count('}')
 
-        script = original_script.replace('\n', '').replace('\t', '').replace('},', '')
+        script = original_script.replace('\n',
+                                         '').replace('\t',
+                                                     '').replace('},', '')
 
         try:
             json_obj = json.loads(script)
@@ -236,9 +243,10 @@ def parse_document_paywall(content):
 
         # get tag: div with class paywall
         tags = soup.find_all('div', class_='paywall')
-        print('div count: '+str(len(tags)))
+        print('div count: ' + str(len(tags)))
 
-        result =doc_lni + '\t' + name + '\t' +description+ '\t' + str(len(tags))+ '\t' +str(left_count) + '\t' +str(right_count)
+        result = doc_lni + '\t' + name + '\t' + description + '\t' + str(
+            len(tags)) + '\t' + str(left_count) + '\t' + str(right_count)
         return result
 
 
@@ -259,7 +267,8 @@ if __name__ == '__main__':
         content = read_file(f)
         # result_dict[fname] = parse_jcite_keywords_log(content)
 
-        result_dict[fname] = parse_casebase_retrieve_paragraph_detail_log(content)
+        result_dict[fname] = parse_casebase_retrieve_paragraph_detail_log(
+            content)
         # result_dict[fname] = parse_casebase_retrieve_referenced_paragraph_log(content)
         # result_dict[fname] = parse_document_paywall(content)
 

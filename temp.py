@@ -1,12 +1,49 @@
-s="4.0154.1003.8083.8373.8543.48112.85612.81612.46612.86912.49512.5253.7283.3373.3013.3083.6213.2903.6623.8043.4433.4243.3563.6746.7996.7346.8036.6886.4026.71542.01546.10841.94841.61441.62341.7733.3163.3393.6973.3273.7303.7013.6773.3433.7153.3123.3873.6983.3243.6953.6693.3283.6453.306"
+import io
+from xml.dom.minidom import parse
 
-times = []
+configJosn = {
+    'dev4': {
+        'file': 'C:\inetpub\wwwroot\\nl_dev4\Web.config',
+        'primaryServiceHost': 'http://ddc4c-i-services.route53.lexis.com',
+        'authServiceHost': 'https://ddc4-signin.lexisnexis.com'
+    },
+    'cert7': {
+        'file': 'C:\inetpub\wwwroot\\nl_cert7\Web.config',
+        'primaryServiceHost': 'http://cdc7c-i-services.route53.lexis.com',
+        'authServiceHost': 'https://cdc13-signin.lexisnexis.com'
+    },
+    'cert2': {
+        'file': 'C:\inetpub\wwwroot\\nl_cert2\Web.config',
+        'primaryServiceHost': 'http://cdc2c-i-services.route53.lexis.com',
+        'authServiceHost': 'https://cdc1-signin.lexisnexis.com'
+    }
+}
 
-i = s.find('.')
-while (i>0):
-    times.append(s[0:i+4])
-    s = s[i+4:]
-    i = s.find('.')
 
-for t in times:
-    print(t)
+# print(configJosn[env]['file'])
+
+# print(configJosn[env]['primaryServiceHost'])
+# print(configJosn[env]['authServiceHost'])
+
+def update_config(env):
+    configFile = configJosn[env]['file']
+    domTree = parse(configFile)
+
+    # #root
+    # rootNode = domTree.documentElement
+
+    #find appSettings node
+    appSettingsNode = domTree.getElementsByTagName('appSettings')[0]
+
+    #new a node
+    skipBucketConnectionNode = domTree.createElement('add')
+    skipBucketConnectionNode.setAttribute('key','SkipBucketConnection')
+    skipBucketConnectionNode.setAttribute('value','true')
+
+    appSettingsNode.appendChild(skipBucketConnectionNode)
+
+    with open(configFile, 'w') as f:
+        domTree.writexml(f, addindent= '    ', encoding= 'utf-8')
+
+
+update_config('dev4')

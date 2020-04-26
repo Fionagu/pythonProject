@@ -2,11 +2,11 @@ import time
 
 
 # 时间获取
-# print(time.time())
+print(time.time())
 
-# print(time.ctime())
+print(time.ctime())
 
-# print(time.gmtime())
+print(time.gmtime())
 
 #时间格式化
 t = time.gmtime()

@@ -4,5 +4,3 @@ tests/geckodriver.log
 api_test/assets/style.css
 assets/style.css
 __pycache__
-
-result.html

@@ -1,0 +1,3 @@
+import mainfunc
+
+print('done')

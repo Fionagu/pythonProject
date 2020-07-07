@@ -19,4 +19,6 @@
    python_string.py
    Reverse --- reverse.py
 
+5 -- Python TUPLE - Pack, Unpack, Compare, Slicing, Delete, Key
+
 # Python Fundamentals

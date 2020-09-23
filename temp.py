@@ -1,6 +1,2 @@
-def getMaxNum(reviewscore):
-    scores = [int(x) for x in reviewscore]
-    print(max(scores))
+import numpy as np
 
-reviewscore = ['2','3','4']
-print(getMaxNum(reviewscore))

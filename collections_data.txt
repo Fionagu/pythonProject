@@ -1,0 +1,45 @@
+built-in data types used to store to collections of data
+
+1.List ---> ordered, changeable, allow duplicate values
+2.Tuple ---> ordered, unchangeable, allow duplicate values
+3.Set ---> unordered, unchangeable, does not allow duplicate values
+4.Dictionary ---> ordered, changeable, does not allow duplicates
+
+List	            Tuples	    Set	        Dictionay
+Access 	            Access	    Access	    Access
+Change	            Update		            Change
+Add		            Add	Add
+Remove		                    Remove	    Remove
+Loop	            Loop	    Loop	    Loop
+List Comprehension			
+Sort			
+Copy			                            Copy
+Join	            Join	    Join	
+Methods			
+Unpack              Uppack		
+
+
+category	List				Tuples		Set			Dictionary
+
+Add			append				N/A			add			index Key
+			insert							update		update
+			extend
+
+Remove		remove				del			remove		pop
+			pop								discard		popitem
+			clear							pop			clear
+			del								clear
+											del
+
+Loop		for					for			for			for
+			while				while					keys()
+			list Comprehension							values(), items()
+
+Sort		sort
+
+Copy		copy()										copy()
+			list()										dict()
+
+Join		+					+			union
+			extend				*			update
+			*
